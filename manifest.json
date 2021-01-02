@@ -14,7 +14,7 @@
     },
 
     "content_scripts": [{
-        "matches": ["http://web.whatsapp.com/*", "https://web.whatsapp.com/*", "http://whatsapp.com/*", "https://whatsapp.com/*"],
+        "matches": ["https://web.whatsapp.com/*"],
         "js": ["/scripts/jquery-3.1.0.min.js", "/scripts/filterdom.js"]
     }],
 
@@ -24,7 +24,5 @@
         "https://ajax.googleapis.com/",
         "storage"
     ]
-
-
 
 }

@@ -27,13 +27,13 @@ String.prototype.strip = function() {
  *  @memberof String
  */
 String.prototype.containsAny = function(substrings) {
-    
+
     for (var i = 0; i != substrings.length; i++) {
         var substring = substrings[i].toLowerCase().strip().split(" ");
         var containsSub = true;
         for (var j = 0; j < substring.length; j++) {
             if (this.indexOf(substring[j]) == -1) {
-                containsSub = false;                
+                containsSub = false;
                 break;
             }
         }
@@ -49,9 +49,8 @@ String.prototype.containsAny = function(substrings) {
  *  @param {number} index Index of the current chat
  */
 function processChat(index) {
-    var el = $(this);
-    var str = el.html();
-
+    let el = $(this);
+    let str = el.html();
     if (str.toLowerCase().strip().containsAny(substrings)) {
         el.hide();
     } else {
@@ -64,6 +63,10 @@ function processChat(index) {
  */
 var substrings;
 
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 /**
  * On get value of the current Storage
  *  @param {Array.<Object>} item Arrays of Words in the storage
@@ -78,11 +81,11 @@ function onGetValue(item) {
             }
         }
     }
-    //Get All chats
-    var itens = document.querySelectorAll("._2wP_Y");
-
+    //Put correct id
+    var items = document.querySelectorAll("._1MZWu");
+    // console.log(items);
     //Process all chats
-    $(itens).each(processChat);
+    $(items).each(processChat);
 
     //Continue the execution
     setTimeout(initExecution, 1000);
@@ -91,6 +94,12 @@ function onGetValue(item) {
 /**
  * init Execution
  */
-function initExecution() {
+async function initExecution() {
+    //wait for chat
+    while (!document.querySelector("._1MZWu")) {
+        // console.log(document.querySelector("._1MZWu"));
+        await sleep(100);
+    }
+
     chrome.storage.sync.get('words', onGetValue);
 }

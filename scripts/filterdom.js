@@ -51,8 +51,10 @@ String.prototype.containsAny = function(substrings) {
 function processChat(index) {
     let el = $(this);
     let str = el.html();
+
     if (str.toLowerCase().strip().containsAny(substrings)) {
         el.hide();
+        el.css({"pointer-events": "none"});
     } else {
         el.show();
     }
@@ -85,10 +87,12 @@ function onGetValue(item) {
     var items = document.querySelectorAll("._1MZWu");
     // console.log(items);
     //Process all chats
+
     $(items).each(processChat);
 
+
     //Continue the execution
-    setTimeout(initExecution, 1000);
+    setTimeout(initExecution, 10);
 }
 
 /**
@@ -100,6 +104,5 @@ async function initExecution() {
         // console.log(document.querySelector("._1MZWu"));
         await sleep(100);
     }
-
     chrome.storage.sync.get('words', onGetValue);
 }
